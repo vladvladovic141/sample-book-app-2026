@@ -64,6 +64,7 @@ def build(){
 }
 def deploy(String environment){
     echo "Deployment to ${environment} has started.."
+    bat "dir"
     echo "Deployment to ${environment} dev finished"       
 }
 def test(String environment){
