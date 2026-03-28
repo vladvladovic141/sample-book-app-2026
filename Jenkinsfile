@@ -3,48 +3,68 @@ pipeline {
     triggers {
         pollSCM('*/1 * * * *')
     }
-    
+
     stages {
         stage('build-install-deps') {
             steps {
-                echo "Installing all necessary node dependencies"
+                script{
+                    build();
+                }
             }
         }
         stage('deploy-dev') {
             steps {
-                echo "Deployment to dev has started.."
-                echo "Deployment to dev finished"
+                script{
+                    deploy("DEV");
+                }
             }
         }
         stage('test-dev') {
             steps {
-                echo "Testing book service has started on Dev.."
-                echo "Testing book service finished on Dev"
+                script{
+                    test("DEV");
+                }
             }
         }
         stage('deploy-stg') {
             steps {
-                echo "Deployment to stg has started.."
-                echo "Deployment to stg finished"
+                script{
+                    deploy("STG");
+                }
             }
         }
         stage('test-stg') {
             steps {
-                echo "Testing book service has started on Stg.."
-                echo "Testing book service finished on Stg"
+                script{
+                    test("STG");
+                }
             }
         }
         stage('deploy-prod') {
             steps {
-                echo "Deployment to prod has started.."
-                echo "Deployment to prod finished"
+                script{
+                    deploy("PROD");
+                }
             }
         }
         stage('test-prod') {
             steps {
-                echo "Testing book service has started on prod.."
-                echo "Testing book service finished on prod"
+                script{
+                    test("PROD");
+                }
             }
         }
     }
+}
+
+def build(){
+    echo "Installing all necessary node dependencies"       
+}
+def deploy(String environment){
+    echo "Deployment to ${environment} has started.."
+    echo "Deployment to ${environment} dev finished"       
+}
+def test(String environment){
+    echo "Testing book service has started on ${environment}.."
+    echo "Testing book service finished on ${environment}."    
 }
