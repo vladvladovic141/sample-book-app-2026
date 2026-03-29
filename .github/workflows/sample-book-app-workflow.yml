@@ -23,36 +23,42 @@ jobs:
         run: dir
   deploy-dev:
     runs-on: ubuntu-latest
+    needs: build-install-deps
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
         run: echo "Deployment to DEV has started.."
   test-dev:
     runs-on: ubuntu-latest
+    needs: deploy-dev
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
         run: echo "Testing book service has started on DEV.."
   deploy-stg:
     runs-on: ubuntu-latest
+    needs: test-dev
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
         run: echo "Deployment to STG has started.."
   test-stg:
     runs-on: ubuntu-latest
+    needs: deploy-stg
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
         run: echo "Testing book service has started on STG.."
   deploy-prod:
     runs-on: ubuntu-latest
+    needs: test-stg
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
         run: echo "Deployment to PROD has started.."
   test-prod:
     runs-on: ubuntu-latest
+    needs: deploy-prod
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
