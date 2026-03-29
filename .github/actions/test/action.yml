@@ -10,18 +10,18 @@ runs:
   steps:
     - uses: actions/checkout@v6
       with:
-        repository: 'mtararujs/RTU-sample-API-automation-2026'
+        repository: '/vladvladovic141/Sample-API-automation'
         clean: 'false'
         path: 'e2e-api-tests'
     - run: echo "Testing Sample Book Application service has started on ${{ inputs.environment }} environment.."
-      shell: bash
+      shell: cmd
     - name: Install dependecies
       working-directory: ./e2e-api-tests
       run: npm install
-      shell: bash
+      shell: cmd
     - name: Running API tests
       working-directory: ./e2e-api-tests
       run: npm run books BOOKS_${{ inputs.environment }}
-      shell: bash
+      shell: cmd
     - run: echo "Testing Sample Book Application service finished.."
-      shell: bash
+      shell: cmd
