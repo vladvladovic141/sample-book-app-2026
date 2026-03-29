@@ -15,10 +15,12 @@ runs:
       run: npm install
       shell: cmd
     - name: Cleanup of old running service
-      run: node_modules/.bin/pm2 delete books-${{ inputs.environment }} || exit 0
+      run: node_modules\.bin\pm2 delete books-${{ inputs.environment }} || exit 0
       shell: cmd
     - name: Rnning service
-      run: node_modules/.bin/pm2 start -n books-${{ inputs.environment }} index.js -- -- ${{ inputs.port }}
+      run: node_modules\.bin\pm2 start -n books-${{ inputs.environment }} index.js -- -- ${{ inputs.port }}
       shell: cmd
     - run: echo "Deployment to ${{ inputs.environment }} environment finished.."
       shell: cmd
+
+      # node_modules\.bin\pm2 delete "books-STG" || exit 0
