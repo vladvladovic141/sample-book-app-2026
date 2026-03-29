@@ -49,8 +49,15 @@ jobs:
     needs: test-dev
     steps:
       - uses: actions/checkout@v6
-      - name: Print step name
-        run: echo "Deployment to STG has started.."
+      - run: echo "Deployment to STG has started.."
+      - name: echo "Install dependencies"
+        run: npm install
+      - name: Cleanup of running service
+        shell: cmd
+        run: node_modules\.bin\pm2 delete "books-STG" || exit 0
+      - name: Running service
+        run: node_modules\.bin\pm2 start -n "books-STG" index.js -- -- 2020
+      - run: echo "Deployment to STG finished"
   test-stg:
     runs-on: self-hosted
     needs: deploy-stg
@@ -63,8 +70,15 @@ jobs:
     needs: test-stg
     steps:
       - uses: actions/checkout@v6
-      - name: Print step name
-        run: echo "Deployment to PROD has started.."
+      - run: echo "Deployment to PROD has started.."
+      - name: echo "Install dependencies"
+        run: npm install
+      - name: Cleanup of running service
+        shell: cmd
+        run: node_modules\.bin\pm2 delete "books-PROD" || exit 0
+      - name: Running service
+        run: node_modules\.bin\pm2 start -n "books-PROD" index.js -- -- 3030
+      - run: echo "Deployment to PROD finished"
   test-prod:
     runs-on: self-hosted
     needs: deploy-prod
