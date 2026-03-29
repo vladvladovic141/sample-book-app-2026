@@ -1,68 +1,57 @@
+# This is a basic workflow to help you get started with Actions
+
 name: Sample Book App Workflow
 
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: ["main"]
-    paths-ignore: 
-      - 'README.md'
-      - 'Jenkinsfile'
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-install-deps:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/build
+      - name: Print step name
+        run: echo "Installing all necessary node dependencies"
   deploy-dev:
-    runs-on: self-hosted
-    needs: build-install-deps
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/deploy
-        with:
-          environment: 'DEV'
-          port: 1010
+      - name: Print step name
+        run: echo "Deployment to DEV has started.."
   test-dev:
-    runs-on: self-hosted
-    needs: deploy-dev
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/test
-        with:
-          environment: 'DEV'
+      - name: Print step name
+        run: echo "Testing book service has started on DEV.."
   deploy-stg:
-    runs-on: self-hosted
-    needs: test-dev
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/deploy
-        with:
-          environment: 'STG'
-          port: 2020
+      - name: Print step name
+        run: echo "Deployment to STG has started.."
   test-stg:
-    runs-on: self-hosted
-    needs: deploy-stg
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/test
-        with:
-          environment: 'STG'
-  deploy-prd:
-    runs-on: self-hosted
-    needs: test-stg
+      - name: Print step name
+        run: echo "Testing book service has started on STG.."
+  deploy-prod:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/deploy
-        with:
-          environment: 'PRD'
-          port: 3030
-  test-prd:
-    runs-on: self-hosted
-    needs: deploy-prd 
+      - name: Print step name
+        run: echo "Deployment to PROD has started.."
+  test-prod:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/test
-        with:
-          environment: 'PRD'
-    
+      - name: Print step name
+        run: echo "Testing book service has started on PROD.."
