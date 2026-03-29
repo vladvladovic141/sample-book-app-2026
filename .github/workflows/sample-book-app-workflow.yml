@@ -32,9 +32,6 @@ jobs:
     needs: deploy-dev
     steps:
       - uses: actions/checkout@v6
-        with:
-          repository: 'vladvladovic141/Sample-API-automation'
-          clean: 'false'
       - uses: ./.github/actions/test
         with:
           environment: "DEV"
