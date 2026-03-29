@@ -21,13 +21,21 @@ jobs:
         run: echo "Installing all necessary node dependencies"
       - name: Install all dependencies
         run: npm install
+      - name: Print step name
+        run: echo "Dependencies installed"
   deploy-dev:
     runs-on: self-hosted
     needs: build-install-deps
     steps:
       - uses: actions/checkout@v6
-      - name: Print step name
-        run: echo "Deployment to DEV has started.."
+      - run: echo "Deployment to DEV has started.."
+      - name: echo "Install dependencies"
+        run: npm install
+      - name: Cleanup of running service
+        run: node_modules\\.bin\\pm2 delete "books-dev || exit 0"
+      - name: Running service
+        run: node_modules\\.bin\\pm2 delete "books-dev || exit 0"
+      - run: echo "Deployment to DEV finished"
   test-dev:
     runs-on: self-hosted
     needs: deploy-dev
