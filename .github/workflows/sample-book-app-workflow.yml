@@ -49,12 +49,9 @@ jobs:
     needs: deploy-stg
     steps:
       - uses: actions/checkout@v6
-        with:
-          repository: 'vladvladovic141/Sample-API-automation'
-          clean: 'false'
       - uses: ./.github/actions/test
         with:
-          environment: "STG"
+          environment: "DEV"
   deploy-prod:
     runs-on: self-hosted
     needs: test-stg
@@ -69,9 +66,6 @@ jobs:
     needs: deploy-prod
     steps:
       - uses: actions/checkout@v6
-        with:
-          repository: 'vladvladovic141/Sample-API-automation'
-          clean: 'false'
       - uses: ./.github/actions/test
         with:
-          environment: "PROD"
+          environment: "DEV"
