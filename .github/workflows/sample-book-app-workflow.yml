@@ -14,7 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-install-deps:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
@@ -22,42 +22,42 @@ jobs:
       - name: List all files
         run: dir
   deploy-dev:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: build-install-deps
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
         run: echo "Deployment to DEV has started.."
   test-dev:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: deploy-dev
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
         run: echo "Testing book service has started on DEV.."
   deploy-stg:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: test-dev
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
         run: echo "Deployment to STG has started.."
   test-stg:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: deploy-stg
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
         run: echo "Testing book service has started on STG.."
   deploy-prod:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: test-stg
     steps:
       - uses: actions/checkout@v6
       - name: Print step name
         run: echo "Deployment to PROD has started.."
   test-prod:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: deploy-prod
     steps:
       - uses: actions/checkout@v6
