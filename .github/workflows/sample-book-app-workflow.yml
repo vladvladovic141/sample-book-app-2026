@@ -32,6 +32,7 @@ jobs:
       - name: echo "Install dependencies"
         run: npm install
       - name: Cleanup of running service
+        shell: cmd
         run: node_modules\.bin\pm2 delete "books-dev" || exit 0
       - name: Running service
         run: node_modules\.bin\pm2 start -n "books-dev" index.js -- 1010
