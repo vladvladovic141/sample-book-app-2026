@@ -32,9 +32,9 @@ jobs:
       - name: echo "Install dependencies"
         run: npm install
       - name: Cleanup of running service
-        run: node_modules\\.bin\\pm2 delete "books-dev || exit 0"
+        run: node_modules\.bin\pm2 delete "books-dev || exit 0"
       - name: Running service
-        run: node_modules\\.bin\\pm2 delete "books-dev || exit 0"
+        run: node_modules\.bin\pm2 start -n "books-dev" index.js -- 1010
       - run: echo "Deployment to DEV finished"
   test-dev:
     runs-on: self-hosted
