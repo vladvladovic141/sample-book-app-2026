@@ -4,9 +4,9 @@ runs:
   using: composite
   steps:
     - run: echo "Installing all necessary node dependencies.."
-      shell: bash
+      shell: cmd
     - name: Install dependecies
       run: npm install
-      shell: bash
+      shell: cmd
     - run: echo "Dependecies successfully installed.."
-      shell: bash
+      shell: cmd
