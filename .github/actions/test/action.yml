@@ -10,7 +10,7 @@ runs:
   steps:
     - uses: actions/checkout@v6
       with:
-        repository: '/vladvladovic141/Sample-API-automation'
+        repository: 'vladvladovic141/Sample-API-automation'
         clean: 'false'
         path: 'e2e-api-tests'
     - run: echo "Testing Sample Book Application service has started on ${{ inputs.environment }} environment.."
